@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Espace Secrétaire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+        
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+        
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div id="sidebar" class="w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 md:translate-x-0 -translate-x-full fixed md:relative z-20 h-full">
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                <h1 class="text-xl font-bold text-blue-600 dark:text-blue-400">Dashboard Admin</h1>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Espace Secrétaire</p>
+            </div>
+            
+            <nav class="mt-6">
+                <div class="px-6 py-3 bg-blue-50 dark:bg-gray-700 border-r-4 border-blue-500">
+                    <a href="#" class="flex items-center text-blue-600 dark:text-blue-400">
+                        <i class="fas fa-tachometer-alt w-5 mr-3"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </div>
+                
+                <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="#" class="flex items-center text-gray-700 dark:text-gray-300">
+                        <i class="fas fa-user-md w-5 mr-3"></i>
+                        <span>Médecins</span>
+                    </a>
+                </div>
+                
+                <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="#" class="flex items-center text-gray-700 dark:text-gray-300">
+                        <i class="fas fa-calendar-alt w-5 mr-3"></i>
+                        <span>Spécialités</span>
+                    </a>
+                </div>
+                
+                <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="#" class="flex items-center text-gray-700 dark:text-gray-300">
+                        <i class="fas fa-users w-5 mr-3"></i>
+                        <span>Disponibilités</span>
+                    </a>
+                </div>
+                
+                <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="#" class="flex items-center text-gray-700 dark:text-gray-300">
+                        <i class="fas fa-file-medical w-5 mr-3"></i>
+                        <span>Rendez-vous</span>
+                    </a>
+                </div>
+                
+            </nav>
+            
+            <div class="absolute bottom-0 w-full p-6 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-gray-700 dark:text-gray-300">Mode Sombre</span>
+                    <button onclick="toggleDarkMode()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 dark:bg-gray-600 transition-colors">
+                        <span class="inline-block h-4 w-4 transform bg-white rounded-full transition-transform translate-x-1 dark:translate-x-6"></span>
+                    </button>
+                </div>
+                
+                <button class="flex items-center text-red-500 w-full py-2 px-4 rounded-lg hover:bg-red-50 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-sign-out-alt w-5 mr-3"></i>
+                    <span>Déconnexion</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Navbar -->
+            <header class="bg-white dark:bg-gray-800 shadow-sm z-10">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div class="flex items-center">
+                        <button onclick="toggleSidebar()" class="md:hidden text-gray-500 dark:text-gray-400 mr-4">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Vue d'ensemble</h2>
+                    </div>
+                    
+                    
+                </div>
+            </header>
+            
+            <!-- Page Content -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">Bienvenue dans votre espace d'administration</h1>
+                    <p class="text-gray-600 dark:text-gray-400">Gérez vos médecins et rendez-vous en toute simplicité</p>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border-b border-blue-500">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 mr-4">
+                                <i class="fas fa-user-md text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Médecins</p>
+                                <p class="text-2xl font-bold text-gray-800 dark:text-white">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border-b border-blue-500">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400 mr-4">
+                                <i class="fas fa-calendar-day text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Rendez-vous du jour</p>
+                                <p class="text-2xl font-bold text-gray-800 dark:text-white">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border-b border-blue-500">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400 mr-4">
+                                <i class="fas fa-clock text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">En attente</p>
+                                <p class="text-2xl font-bold text-gray-800 dark:text-white">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Rendez-vous récents -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow border-[1.4px] border-blue-500">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <h3 class="text-lg font-medium text-gray-800 dark:text-white">Rendez-vous récents</h3>
+                        </div>
+                        <div class="p-6">
+                            <div class="text-center py-8">
+                                <i class="fas fa-calendar-times text-4xl text-gray-400 dark:text-gray-500 mb-4"></i>
+                                <p class="text-gray-500 dark:text-gray-400">Aucun rendez-vous</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Médecins disponibles -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow border-[1.4px] border-blue-500">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <h3 class="text-lg font-medium text-gray-800 dark:text-white">Médecins disponibles</h3>
+                        </div>
+                        <div class="p-6">
+                            <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+                                <li class="py-3 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-400 font-medium">SM</div>
+                                    <div class="ml-4">
+                                        <p class="font-medium text-gray-800 dark:text-white">Dr. Sophie Martin</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Cardiologie</p>
+                                    </div>
+                                </li>
+                                <li class="py-3 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-600 dark:text-green-400 font-medium">JD</div>
+                                    <div class="ml-4">
+                                        <p class="font-medium text-gray-800 dark:text-white">Dr. Jean Dupont</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Dermatologie</p>
+                                    </div>
+                                </li>
+                                <li class="py-3 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-400 font-medium">PD</div>
+                                    <div class="ml-4">
+                                        <p class="font-medium text-gray-800 dark:text-white">Dr. Pierre Dubois</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Neurologie</p>
+                                    </div>
+                                </li>
+                                <li class="py-3 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-yellow-100 dark:bg-yellow-900 flex items-center justify-center text-yellow-600 dark:text-yellow-400 font-medium">ÉR</div>
+                                    <div class="ml-4">
+                                        <p class="font-medium text-gray-800 dark:text-white">Dr. Émilie Rousseau</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Orthopédie</p>
+                                    </div>
+                                </li>
+                                <li class="py-3 flex items-center">
+                                    <div class="h-10 w-10 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center text-red-600 dark:text-red-400 font-medium">TB</div>
+                                    <div class="ml-4">
+                                        <p class="font-medium text-gray-800 dark:text-white">Dr. Thomas Bernard</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Cardiologie</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+   
+
+    <!-- Mobile sidebar overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden hidden" onclick="toggleSidebar()"></div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
