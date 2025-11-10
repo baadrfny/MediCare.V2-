@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disponibilité des Médecins</title>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 p-6">
+
+<h1 class="text-2xl font-bold mb-4">Disponibilité des Médecins</h1>
+
+<select id="selectDoc" class="border p-2 rounded mb-4">
+    <option value="">Choisir un médecin</option>
+</select>
+
+<div id="status" class="text-lg font-semibold mt-2"></div>
+
+<script>
+// جلب البيانات من localStorage
+let Doctors = JSON.parse(localStorage.getItem("doctors")) || [];
+
+// تعبئة قائمة الأطباء
+let select = document.getElementById("selectDoc");
+Doctors.forEach(doc => {
+    let option = document.createElement("option");
+    option.value = doc.id;
+    option.textContent = doc.name;
+    select.appendChild(option);
+});
+
+// التحقق من التوافر الحالي
+function checkDisponibilite(doc) {
+    const now = new Date();
+    const jours = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+    const today = jours[now.getDay()]; // اليوم الحالي بالفرنسي
+    const currentTime = now.getHours()*60 + now.getMinutes(); // الوقت بالدقائق
+
+    const dayObj = doc.days.find(d => d.day === today);
+    if (!dayObj) return false;
+
+    const [startH, startM] = dayObj.start.split(':').map(Number);
+    const [endH, endM] = dayObj.end.split(':').map(Number);
+    const startTime = startH*60 + startM;
+    const endTime = endH*60 + endM;
+
+    return currentTime >= startTime && currentTime <= endTime;
+}
+
+select.addEventListener('change', () => {
+    const selectedId = parseInt(select.value);
+    const doc = Doctors.find(d => d.id === selectedId);
+    const statusDiv = document.getElementById("status");
+
+    if (!doc) {
+        statusDiv.textContent = "";
+        return;
+    }
+
+    if (checkDisponibilite(doc)) {
+        statusDiv.textContent = doc.name + " est disponible maintenant ✅";
+        statusDiv.className = "text-green-600 font-semibold mt-2";
+    } else {
+        statusDiv.textContent = doc.name + " n'est pas disponible ❌";
+        statusDiv.className = "text-red-600 font-semibold mt-2";
+    }
+});
+</script>
+</body>
+</html>

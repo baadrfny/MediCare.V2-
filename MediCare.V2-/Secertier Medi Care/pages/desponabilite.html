@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Disponibilités - Dashboard Secrétaire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        function toggleTimeInput(checkbox) {
+            const day = checkbox.value;
+            const timeDiv = document.getElementById(`time-${day}`);
+            if (checkbox.checked) {
+                timeDiv.classList.remove('hidden');
+            } else {
+                timeDiv.classList.add('hidden');
+                timeDiv.querySelector('.start-time').value = '';
+                timeDiv.querySelector('.end-time').value = '';
+            }
+        }
+    </script>
+
+    <style>
+        .doctor-card.active {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px #bfdbfe;
+        }
+        .time-slot {
+            transition: all 0.2s ease;
+        }
+        .time-slot:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+<div class="flex h-screen">
+    <!-- Mobile sidebar overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden hidden" onclick="toggleSidebar()"></div>
+
+    <button onclick="toggleSidebar()" class="md:hidden fixed top-4 left-4 z-20 text-gray-500 dark:text-gray-400">
+        <i class="fas fa-bars text-xl"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 md:translate-x-0 -translate-x-full fixed md:relative z-20 h-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h1 class="text-xl font-bold text-blue-600 dark:text-blue-400">Dashboard Admin</h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Secrétaire (admin)</p>
+        </div>
+        <nav class="mt-6">
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="#" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-tachometer-alt w-5 mr-3"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </div>
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="#" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-user-md w-5 mr-3"></i>
+                    <span>Médecins</span>
+                </a>
+            </div>
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="#" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-calendar-alt w-5 mr-3"></i>
+                    <span>Spécialités</span>
+                </a>
+            </div>
+            <div class="px-6 py-3 bg-blue-50 dark:bg-gray-700 border-r-4 border-blue-500">
+                <a href="#" class="flex items-center text-blue-600 dark:text-blue-400">
+                    <i class="fas fa-users w-5 mr-3"></i>
+                    <span>Disponibilités</span>
+                </a>
+            </div>
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="#" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-file-medical w-5 mr-3"></i>
+                    <span>Rendez-vous</span>
+                </a>
+            </div>
+        </nav>
+        <div class="absolute bottom-0 w-full p-6 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-gray-700 dark:text-gray-300">Mode Sombre</span>
+                <button onclick="toggleDarkMode()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 dark:bg-gray-600 transition-colors">
+                    <span class="inline-block h-4 w-4 transform bg-white rounded-full transition-transform translate-x-1 dark:translate-x-6"></span>
+                </button>
+            </div>
+            <button id="desconectBtn" class="flex items-center text-red-500 w-full py-2 px-4 rounded-lg hover:bg-red-50 dark:hover:bg-gray-700 transition-colors">
+                <i class="fas fa-sign-out-alt w-5 mr-3"></i>
+                <span>Déconnexion</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center py-4 px-4 md:px-8">
+                <div class="md:ml-4">
+                    <h1 class="text-xl font-bold text-gray-900 dark:text-white">Gestion des Disponibilités</h1>
+                    <p class="text-gray-600 dark:text-gray-400">Définissez les créneaux horaires pour chaque médecin</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex overflow-y-auto p-4 md:p-8">
+            <div class="flex-1 overflow-y-auto p-4 md:p-8">
+                <div class="bg-gray-100 border-2 rounded-[10px] shadow-lg p-8 flex flex-col gap-6 mb-8 bg-blue-100 bg-white dark:bg-gray-800 rounded-lg shadow p-6 border-b border-blue-500 ">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-gray-400">Sélectionner un médecin</h3>
+                    <select id="selectDoc" class="border-2 rounded-[10px] p-2">
+                        <option value="">Choisir le medecin</option>
+                    </select>
+                </div>
+
+                <div id="ajouteDiv" class="bg-white dark:bg-gray-800 rounded-lg shadow p-6 border-2 border-blue-500 dark:text-gray-400">
+                    <div class="flex justify-center items-center">
+                        <div class="flex-1">
+                            <h3>Ajouter un créneau de disponibilité</h3>
+                            <p class="font-semibold mb-2">Jours de la semaine</p>
+                            <div id="joursCheckboxe" class="grid grid-cols-2 gap-2 p-3 bg-white rounded-lg border border-gray-300 dark:bg-gray-100">
+                                <!-- Exemple pour Lundi -->
+                                <div>
+                                    <label class="flex items-center text-sm text-gray-700">
+                                        <input type="checkbox" name="dispoDay" value="Lundi" class="rounded text-blue-600 focus:ring-blue-500 mr-2" onchange="toggleTimeInput(this)"> Lundi
+                                    </label>
+                                    <div id="time-Lundi" class="hidden ml-6 mb-2">
+                                        <input type="time" class="start-time mr-2">
+                                        <input type="time" class="end-time">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="flex items-center text-sm text-gray-700">
+                                        <input type="checkbox" name="dispoDay" value="Mardi" class="rounded text-blue-600 focus:ring-blue-500 mr-2" onchange="toggleTimeInput(this)"> Mardi
+                                    </label>
+                                    <div id="time-Mardi" class="hidden ml-6 mb-2">
+                                        <input type="time" class="start-time mr-2">
+                                        <input type="time" class="end-time">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="flex items-center text-sm text-gray-700">
+                                        <input type="checkbox" name="dispoDay" value="Mercredi" class="rounded text-blue-600 focus:ring-blue-500 mr-2" onchange="toggleTimeInput(this)"> Mercredi
+                                    </label>
+                                    <div id="time-Mercredi" class="hidden ml-6 mb-2">
+                                        <input type="time" class="start-time mr-2">
+                                        <input type="time" class="end-time">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="flex items-center text-sm text-gray-700">
+                                        <input type="checkbox" name="dispoDay" value="Jeudi" class="rounded text-blue-600 focus:ring-blue-500 mr-2" onchange="toggleTimeInput(this)"> Jeudi
+                                    </label>
+                                    <div id="time-Jeudi" class="hidden ml-6 mb-2">
+                                        <input type="time" class="start-time mr-2">
+                                        <input type="time" class="end-time">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="flex items-center text-sm text-gray-700">
+                                        <input type="checkbox" name="dispoDay" value="Vendredi" class="rounded text-blue-600 focus:ring-blue-500 mr-2" onchange="toggleTimeInput(this)"> Vendredi
+                                    </label>
+                                    <div id="time-Vendredi" class="hidden ml-6 mb-2">
+                                        <input type="time" class="start-time mr-2">
+                                        <input type="time" class="end-time">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="flex items-center text-sm text-gray-700">
+                                        <input type="checkbox" name="dispoDay" value="Samedi" class="rounded text-blue-600 focus:ring-blue-500 mr-2" onchange="toggleTimeInput(this)"> Samedi
+                                    </label>
+                                    <div id="time-Samedi" class="hidden ml-6 mb-2">
+                                        <input type="time" class="start-time mr-2">
+                                        <input type="time" class="end-time">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="flex items-center text-sm text-gray-700">
+                                        <input type="checkbox" name="dispoDay" value="Dimanche" class="rounded text-blue-600 focus:ring-blue-500 mr-2" onchange="toggleTimeInput(this)"> Dimanche
+                                    </label>
+                                    <div id="time-Dimanche" class="hidden ml-6 mb-2">
+                                        <input type="time" class="start-time mr-2">
+                                        <input type="time" class="end-time">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mt-4">
+                                <button id="saveBtn" class="bg-green-600 p-2 rounded-[10px] text-white hover:bg-green-900">save</button>
+                                <div id="message" class="text-green-600 mt-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+</div>
+
+<script>
+    const doctors = [
+        { id: 1, name: 'badr', specialite: 'heart', days: [] },
+        { id: 2, name: 'ali', specialite: 'dentiste', days: [] },
+        { id: 3, name: 'ahmed', specialite: 'chidren', days: [] },
+        { id: 4, name: 'muslim', specialite: 'legs', days: [] }
+    ];
+
+    if (!localStorage.getItem("doctors")) {
+        localStorage.setItem("doctors", JSON.stringify(doctors));
+    }
+
+    let Doctors = JSON.parse(localStorage.getItem("doctors"));
+    let select = document.getElementById("selectDoc");
+
+    Doctors.forEach(doc => {
+        let option = document.createElement("option");
+        option.value = doc.id;
+        option.textContent = doc.name;
+        select.appendChild(option);
+    });
+
+    select.addEventListener("change", () => {
+        const selectedId = parseInt(select.value);
+        const selectDoc = Doctors.find(d => d.id === selectedId);
+
+        document.querySelectorAll('#joursCheckboxe input[type="checkbox"]').forEach(checkB => {
+            checkB.checked = false;
+            const day = checkB.value;
+            const timeDiv = document.getElementById(`time-${day}`);
+            timeDiv.classList.add('hidden');
+            timeDiv.querySelector('.start-time').value = '';
+            timeDiv.querySelector('.end-time').value = '';
+        });
+
+        if (selectDoc) {
+            selectDoc.days.forEach(dayObj => {
+                const checkbox = document.querySelector(`#joursCheckboxe input[value="${dayObj.day}"]`);
+                if (checkbox) checkbox.checked = true;
+                const timeDiv = document.getElementById(`time-${dayObj.day}`);
+                timeDiv.classList.remove('hidden');
+                timeDiv.querySelector('.start-time').value = dayObj.start;
+                timeDiv.querySelector('.end-time').value = dayObj.end;
+            });
+        }
+    });
+
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.addEventListener('click', () => {
+        const selectedId = parseInt(select.value);
+        if (!selectedId) {
+            alert("Choisir un medecin!");
+            return;
+        }
+
+        const selectDoc = Doctors.find(d => d.id === selectedId);
+
+        const checkedDays = Array.from(
+            document.querySelectorAll('#joursCheckboxe input[type="checkbox"]:checked')
+        ).map(checkbox => {
+            const day = checkbox.value;
+            const timeDiv = document.getElementById(`time-${day}`);
+            const start = timeDiv.querySelector('.start-time').value;
+            const end = timeDiv.querySelector('.end-time').value;
+            return { day, start, end };
+        });
+
+        selectDoc.days = checkedDays;
+        localStorage.setItem("doctors", JSON.stringify(Doctors));
+        document.getElementById("message").textContent = "Desponability Saving Done";
+    });
+</script>
+</body>
+</html>
