@@ -119,7 +119,6 @@ function toggleSidebar() {
                             <th class="py-2 px-4 text-left">Nom</th>
                             <th class="py-2 px-4 text-left">Médecin</th>
                             <th class="py-2 px-4 text-left">Date</th>
-                            <th class="py-2 px-4 text-left">Heure</th>
                             <th class="py-2 px-4 text-left">Raison</th>
                             <th class="py-2 px-4 text-left">Statut</th>
                             <th class="py-2 px-4 text-left">Actions</th>
@@ -172,8 +171,7 @@ function renderAppointments() {
         tr.innerHTML = `
             <td class="py-2 px-4 dark:text-gray-300">${app.name}</td>
             <td class="py-2 px-4 dark:text-gray-300">${docName}</td>
-            <td class="py-2 px-4 dark:text-gray-300">${app.date}</td>
-            <td class="py-2 px-4 dark:text-gray-300">${app.time}</td>
+            <td class="py-2 px-4 dark:text-gray-300">${app.day}</td>
             <td class="py-2 px-4 dark:text-gray-300">${app.reason}</td>
             <td class="py-2 px-4 font-semibold ${
                 app.status === "Accepte" ? "text-green-600" :

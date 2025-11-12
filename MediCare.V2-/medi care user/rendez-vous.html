@@ -117,8 +117,8 @@ function renderAppointments(){
     appointments.forEach(app => {
         const p = document.createElement("p");
         const doc = doctors.find(d => d.id === parseInt(app.doctor));
-        const docName = doc ? doc.nom : "Médecin";
-        p.textContent = `${app.date} (${app.day}) - ${app.nom} (${docName}) : ${app.reason} - ${app.status}`;
+        const docName = doc ? doc.nom : "Medecin";
+        p.textContent = ` (${app.day}) -  (${docName}) : ${app.reason} - ${app.status}`;
         appointmentsList.appendChild(p);
     });
 }
