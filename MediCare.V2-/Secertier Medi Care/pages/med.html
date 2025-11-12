@@ -34,17 +34,31 @@
         }
     </script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
-        
-        function toggleDarkMode() {
-            document.documentElement.classList.toggle('dark');
-        }
-        
+        if (localStorage.getItem("theme") === "dark") {
+    document.documentElement.classList.add("dark");
+  }
+
+    
+    tailwind.config = { darkMode: 'class' }
+
+    function toggleDarkMode() {
+  document.documentElement.classList.toggle("dark");
+
+  if (document.documentElement.classList.contains("dark")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+}
+
+
         function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('-translate-x-full');
-        }
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    sidebar.classList.toggle('-translate-x-full');
+    overlay.classList.toggle('hidden');
+}
+
     </script>
 
     <title>MediCare +</title>
@@ -53,6 +67,12 @@
 <body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
     <div class="flex h-screen">
         <!-- Sidebar -->
+
+        <button onclick="toggleSidebar()" class="md:hidden text-gray-500 dark:text-gray-400 mr-4 ml-4 top-0 mt-2 right-0 fixed z-30">
+    <i class="fas fa-bars text-xl"></i>
+</button>
+
+
         <div id="sidebar"
             class="w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 md:translate-x-0 -translate-x-full fixed md:relative z-20 h-full">
             <div class="p-6 border-b border-gray-200 dark:border-gray-700">
@@ -108,10 +128,9 @@
                     </button>
                 </div>
 
-                <button
+                <button id="desconectBtn"
                     class="flex items-center text-red-500 w-full py-2 px-4 rounded-lg hover:bg-red-50 dark:hover:bg-gray-700 transition-colors">
-                    <i class="fas fa-sign-out-alt w-5 mr-3"></i>
-                    <span>Déconnexion</span>
+                    <i class="fas fa-sign-out-alt w-5 mr-3"></i><span>Déconnexion</span>
                 </button>
             </div>
         </div>
@@ -158,7 +177,6 @@
                 <div class="flex flex-col w-[90%] cursor-pointer relative">
                     <label class="text-text dark:text-white font-body pl-1">Spécialité *</label>
                     <select id="user-choise" class="flex items-center justify-between w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-transparent dark:border-[#334155] placeholder:font-body h-8 pl-2 text-text dark:text-white text-md">
-                    <option id="choises" value="" class="bg-gray-100 dark:bg-[#334155] w-full">choisir la spécialitée</option>
 
                     </select>
                 </div>
@@ -247,6 +265,8 @@
             const urlInput = document.getElementById('url');
             const descriptionInput = document.getElementById('description');
             const succes_message = document.getElementById('succes-mes');
+            const general_date = new Date();
+            let today = general_date.getDay();
             let currentCard = null;
 
             let doctors = JSON.parse(localStorage.getItem('doctors info')) || [];
@@ -254,20 +274,50 @@
         
             let formStatus = false;
             
+            console.log(today)
+            
+            switch (today) {
+                case 1:
+                    today = 'Lundi'
+                    break;
+                case 2:
+                    today = 'Mardi'
+                    break;
+                case 3:
+                    today = 'Mercredi'
+                    break;
+                case 4:
+                    today = "Jeudi"
+                    break;
+                case 5:
+                    today = 'Vendredi'
+                    break;
+                case 6:
+                    today = 'Samedi'
+                    break;
+                case 0:
+                    today = 'Dimanche'
+                    break;
+                
+                
+            }
 
             if (doctors) {
                 doctors.forEach(doctor => {
-                    createnewcard(doctor);
+                    createnewcard(doctor,today);
                 });
                 
             }
+
             if (all_specialites) {
                 specialitesAdd();
             }
+
+            console.log(today);
             function specialitesAdd(){
                 all_specialites.forEach(one =>{
                     const specialite_choix = document.createElement('option');
-                    specialite_choix.classList = " w-full h-auto pl-2 dark:text-text";
+                    specialite_choix.classList = " w-full h-auto pl-2 dark:text-text bg-gray-100 dark:bg-[#334155]";
                     specialite_choix.textContent = one ;
                     specialiteInput.appendChild(specialite_choix);
                     
@@ -287,7 +337,7 @@
                 formStatus = false;
             }
 
-            function createnewcard(doctor){
+            function createnewcard(doctor,today){
                 // card div
                 const card = document.createElement('div');
                 card.className = "flex flex-col justify-start items-center gap-2 w-72 h-[232px] bg-white dark:bg-gray-800 shadow-lg px-6 py-5 rounded-xl";
@@ -323,11 +373,23 @@
                 doctorInfo.appendChild(doctordispo);
                 //cercle avec rouge for indisponible and vert for disponible
                 const cercle_red_green = document.createElement('div');
-                cercle_red_green.className = "w-2 h-2 rounded-full bg-red-600";;
+                if (doctor.days.includes(today)) {
+                    cercle_red_green.className = "w-2 h-2 rounded-full bg-green-600";
+                }else {
+                    cercle_red_green.className = "w-2 h-2 rounded-full bg-red-600";
+                }
                 doctordispo.appendChild(cercle_red_green);
                 //disponible ou indisponible text
                 const disponible = document.createElement('p');
-                disponible.className = "dark:text-gray-400 text-text font-body"
+                disponible.className = "dark:text-gray-400 text-text font-body";
+                console.log(doctor.days);
+                console.log(today);
+                console.log(doctor.days.includes(today))
+                if (doctor.days.includes(today)) {
+                    disponible.textContent = "disponible" ;
+                }else {
+                    disponible.textContent = "indisponible";
+                }
                 doctordispo.appendChild(disponible);
                 //descrirption container
                 const descriptionCon = document.createElement('div');
@@ -347,7 +409,7 @@
                 modify.className = "flex justify-center bg-gray-400 hover:bg-gray-600 dark:bg-gray-700 hover:dark:bg-gray-600 rounded-lg w-full items-center gap-4"
                 buttonsCon.appendChild(modify);
 
-                console.log(formStatus.value)
+                
                 //modify function calling
                 modify.addEventListener('click', () => {
                     //afficher form avec les informations de medicins
@@ -358,7 +420,6 @@
                     //quand cliquez sur modifier
                     formStatus = true;
                     currentCard = card;
-                    console.log(formStatus.value)
                     console.log('modify mod');
                 })
                 //inside button icon and text
@@ -392,7 +453,6 @@
                     succes_message.classList.add('hidden')
                 }, 2500)
             }
-
 
 
             //when clicked in modify in form
@@ -456,7 +516,7 @@
                 doctors.push(doctor);
                 localStorage.setItem('doctors info', JSON.stringify(doctors));
                 console.log('entering function')
-                createnewcard(doctor);
+                createnewcard(doctor,today);
             })
             
             function removefromarray(card) {
@@ -498,6 +558,16 @@
         </div>
 
         <script>
+
+            document.getElementById("desconectBtn").addEventListener("click", () => {
+            window.location.href = "login.html";
+        });
+
+        // Vérif session
+        if (sessionStorage.getItem("isLoggedIn") !== "true") {
+            window.location.href = "login.html";
+        }
+
             function toggleSidebar() {
                 const sidebar = document.getElementById('sidebar');
                 sidebar.classList.toggle('-translate-x-full');

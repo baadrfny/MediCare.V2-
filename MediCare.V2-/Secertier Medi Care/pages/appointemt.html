@@ -5,84 +5,187 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - Gestion des Rendez-vous</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+
+    if (localStorage.getItem("theme") === "dark") {
+    document.documentElement.classList.add("dark");
+  }
+
+    
+    tailwind.config = { darkMode: 'class' }
+
+    function toggleDarkMode() {
+  document.documentElement.classList.toggle("dark");
+
+  if (document.documentElement.classList.contains("dark")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+}
+
+
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        sidebar.classList.toggle('-translate-x-full');
+        overlay.classList.toggle('hidden');
+    }
+</script>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
 
-<header class="bg-white shadow-md sticky top-0 z-10 p-4 flex justify-between">
-    <h1 class="text-xl font-bold text-blue-600">Admin - Rendez-vous</h1>
-</header>
+<div class="flex h-screen overflow-hidden">
 
-<section class="max-w-6xl mx-auto p-4">
-    <table class="min-w-full bg-white rounded-lg shadow-md">
-        <thead class="bg-blue-500 text-white">
-            <tr>
-                <th class="py-2 px-4">Nom</th>
-                <th class="py-2 px-4">Médecin</th>
-                <th class="py-2 px-4">Date</th>
-                <th class="py-2 px-4">Heure</th>
-                <th class="py-2 px-4">Raison</th>
-                <th class="py-2 px-4">Statut</th>
-                <th class="py-2 px-4">Actions</th>
-            </tr>
-        </thead>
-        <tbody id="appointmentsTable">
-            <!-- Les rendez-vous seront affichés ici -->
-        </tbody>
-    </table>
-</section>
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="w-64 bg-white dark:bg-gray-800 shadow-lg transform transition-transform duration-300 md:translate-x-0 -translate-x-full fixed md:relative z-20 h-full">
+        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+            <h1 class="text-xl font-bold text-blue-600 dark:text-blue-400">Dashboard Admin</h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Secrétaire (admin)</p>
+        </div>
+        <nav class="mt-6">
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="dashboard.html" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-tachometer-alt w-5 mr-3"></i>
+                    <span>Tableau de bord</span>
+                </a>
+            </div>
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="med.html" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-user-md w-5 mr-3"></i>
+                    <span>Médecins</span>
+                </a>
+            </div>
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="specialiti.html" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-calendar-alt w-5 mr-3"></i>
+                    <span>Spécialités</span>
+                </a>
+            </div>
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="desponabilite.html" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <i class="fas fa-users w-5 mr-3"></i>
+                    <span>Disponibilités</span>
+                </a>
+            </div>
+           <div class="px-6 py-3 bg-blue-50 dark:bg-gray-700 border-r-4 border-blue-500">
+                <a href="desponabilite.html" class="flex items-center text-blue-600 dark:text-blue-400">
+                    <i class="fas fa-file-medical w-5 mr-3"></i>
+                    <span>Rendez-vous</span>
+                </a>
+            </div>
+        </nav>
+        <div class="absolute bottom-0 w-full p-6 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-gray-700 dark:text-gray-300">Mode Sombre</span>
+                <button onclick="toggleDarkMode()" class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 dark:bg-gray-600 transition-colors">
+                    <span class="inline-block h-4 w-4 transform bg-white rounded-full transition-transform translate-x-1 dark:translate-x-6"></span>
+                </button>
+            </div>
+            <button id="desconectBtn" class="flex items-center text-red-500 w-full py-2 px-4 rounded-lg hover:bg-red-50 dark:hover:bg-gray-700 transition-colors">
+                <i class="fas fa-sign-out-alt w-5 mr-3"></i>
+                <span>Déconnexion</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Overlay for mobile -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden hidden" onclick="toggleSidebar()"></div>
+
+    <!-- Main content -->
+    <div class="flex-1 flex flex-col overflow-auto md:ml-20 ">
+        <!-- Mobile burger -->
+        <header class="md:hidden flex items-center justify-between bg-white dark:bg-gray-800 p-4 shadow-md sticky top-0 z-10">
+            <h1 class="text-lg font-bold text-blue-600 dark:text-blue-400">Rendez-vous</h1>
+            <button onclick="toggleSidebar()" class="text-gray-500 dark:text-gray-400">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </header>
+
+        <main class="flex-1 p-4 md:p-6">
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Gestion des Rendez-vous</h1>
+
+            <!-- Responsive table container -->
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-md table-auto">
+                    <thead class="bg-blue-500 text-white">
+                        <tr>
+                            <th class="py-2 px-4 text-left">Nom</th>
+                            <th class="py-2 px-4 text-left">Médecin</th>
+                            <th class="py-2 px-4 text-left">Date</th>
+                            <th class="py-2 px-4 text-left">Heure</th>
+                            <th class="py-2 px-4 text-left">Raison</th>
+                            <th class="py-2 px-4 text-left">Statut</th>
+                            <th class="py-2 px-4 text-left">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentsTable"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
 
 <script>
-// Charger les médecins
-let doctors = JSON.parse(localStorage.getItem("doctors")) || [];
 
-// Charger les rendez-vous
+    function toggleDarkMode() {
+  document.documentElement.classList.toggle('dark');
+
+  if (document.documentElement.classList.contains('dark')) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+}
+
+let doctors = JSON.parse(localStorage.getItem("doctors")) || [];
 let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+
 const tableBody = document.getElementById("appointmentsTable");
 
-// Fonction pour afficher les rendez-vous
 function renderAppointments(){
     tableBody.innerHTML = "";
     if(appointments.length === 0){
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td colspan="7" class="text-center py-4">Aucun rendez-vous pour le moment</td>`;
-        tableBody.appendChild(tr);
+        tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-4">Aucun rendez-vous pour le moment</td></tr>`;
         return;
     }
-
     appointments.forEach((app, index) => {
-        const doc = doctors.find(d => d.id === parseInt(app.doctor));
-        const docName = doc ? doc.name : "Médecin";
+        const doc = doctors.find(d => d.id == app.doctor);
+        const docName = doc ? doc.name : "Medecin";
         const tr = document.createElement("tr");
         tr.classList.add("border-b");
-
         tr.innerHTML = `
-            <td class="py-2 px-4">${app.name}</td>
-            <td class="py-2 px-4">${docName}</td>
-            <td class="py-2 px-4">${app.date}</td>
-            <td class="py-2 px-4">${app.time}</td>
-            <td class="py-2 px-4">${app.reason}</td>
-            <td class="py-2 px-4">${app.status}</td>
+            <td class="py-2 px-4 dark:text-gray-300">${app.name}</td>
+            <td class="py-2 px-4 dark:text-gray-300">${docName}</td>
+            <td class="py-2 px-4 dark:text-gray-300">${app.date}</td>
+            <td class="py-2 px-4 dark:text-gray-300">${app.time}</td>
+            <td class="py-2 px-4 dark:text-gray-300">${app.reason}</td>
+            <td class="py-2 px-4 font-semibold ${
+                app.status === "Accepte" ? "text-green-600" :
+                app.status === "En attente" ? "text-yellow-600" :
+                "text-blue-600"
+            }">${app.status}</td>
             <td class="py-2 px-4 space-x-2">
-                <button class="bg-green-500 text-white px-2 py-1 rounded acceptBtn">Accepter</button>
+                <button class="bg-green-500 text-white p-1 rounded acceptBtn m-2">Accepter</button>
                 <button class="bg-red-500 text-white px-2 py-1 rounded cancelBtn">Annuler</button>
             </td>
         `;
         tableBody.appendChild(tr);
-
-        // Événements boutons
-        tr.querySelector(".acceptBtn").addEventListener("click", () => {
-            appointments[index].status = "Accepté";
+        tr.querySelector(".acceptBtn").onclick = () => {
+            appointments[index].status = "Accepte";
             localStorage.setItem("appointments", JSON.stringify(appointments));
             renderAppointments();
-        });
-        tr.querySelector(".cancelBtn").addEventListener("click", () => {
-            appointments[index].status = "Annulé";
+        };
+        tr.querySelector(".cancelBtn").onclick = () => {
+            appointments[index].status = "Annule";
             localStorage.setItem("appointments", JSON.stringify(appointments));
             renderAppointments();
-        });
+        };
     });
 }
-
 renderAppointments();
 </script>
 
