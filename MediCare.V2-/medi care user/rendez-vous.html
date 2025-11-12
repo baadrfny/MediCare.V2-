@@ -76,18 +76,9 @@
 
 <script>
 // --- Initialiser les médecins si localStorage vide ---
-let defaultDoctors = [
-    { id: 1, name: 'badr', days: ['Lundi','Mardi'] },
-    { id: 2, name: 'ali', days: ['Mercredi','Jeudi'] },
-    { id: 3, name: 'ahmed', days: ['Vendredi'] },
-    { id: 4, name: 'muslim', days: ['Mardi','Jeudi'] }
-];
 
-if(!localStorage.getItem("doctors")){
-    localStorage.setItem("doctors", JSON.stringify(defaultDoctors));
-}
 
-let doctors = JSON.parse(localStorage.getItem("doctors"));
+let doctors = JSON.parse(localStorage.getItem("doctors info")) || [];
 let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
 
 const selectDay = document.getElementById("selectDay");
@@ -106,10 +97,15 @@ selectDay.addEventListener("change", () => {
     availableDoctors.forEach(doc => {
         const option = document.createElement("option");
         option.value = doc.id;
-        option.textContent = doc.name;
+        option.textContent = doc.nom;
         selectDoc.appendChild(option);
     });
 });
+
+
+
+
+
 
 // --- Afficher les rendez-vous ---
 function renderAppointments(){
@@ -121,8 +117,8 @@ function renderAppointments(){
     appointments.forEach(app => {
         const p = document.createElement("p");
         const doc = doctors.find(d => d.id === parseInt(app.doctor));
-        const docName = doc ? doc.name : "Médecin";
-        p.textContent = `${app.date} (${app.day}) - ${app.name} (${docName}) : ${app.reason} - ${app.status}`;
+        const docName = doc ? doc.nom : "Médecin";
+        p.textContent = `${app.date} (${app.day}) - ${app.nom} (${docName}) : ${app.reason} - ${app.status}`;
         appointmentsList.appendChild(p);
     });
 }

@@ -2,17 +2,28 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta nom="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestion des Disponibilités - Dashboard Secrétaire</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <script>
+
+    if (localStorage.getItem("theme") === "dark") {
+    document.documentElement.classList.add("dark");
+  }
     tailwind.config = { darkMode: 'class' }
 
     function toggleDarkMode() {
-        document.documentElement.classList.toggle('dark');
-    }
+  document.documentElement.classList.toggle("dark");
+
+  if (document.documentElement.classList.contains("dark")) {
+    localStorage.setItem("theme", "dark");
+  } else {
+    localStorage.setItem("theme", "light");
+  }
+}
+
 
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
@@ -28,7 +39,7 @@
     <!-- Mobile sidebar overlay -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden hidden" onclick="toggleSidebar()"></div>
 
-    <button onclick="toggleSidebar()" class="md:hidden fixed top-4 left-4 z-20 text-gray-500 dark:text-gray-400">
+    <button onclick="toggleSidebar()" class="md:hidden text-gray-500 dark:text-gray-400 mr-4 ml-4 top-0 mt-2 right-0  fixed">
         <i class="fas fa-bars text-xl"></i>
     </button>
 
@@ -51,14 +62,14 @@
                     <span>Médecins</span>
                 </a>
             </div>
-            <div class="px-6 py-3 bg-blue-50 dark:bg-gray-700 border-r-4 border-blue-500">
-                <a href="specialiti.html" class="flex items-center text-blue-600 dark:text-blue-400">
+            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <a href="specialiti.html" class="flex items-center text-gray-700 dark:text-gray-300">
                     <i class="fas fa-calendar-alt w-5 mr-3"></i>
                     <span>Spécialités</span>
                 </a>
             </div>
-            <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
-                <a href="desponabilite.html" class="flex items-center text-gray-700 dark:text-gray-300">
+            <div class="px-6 py-3 bg-blue-50 dark:bg-gray-700 border-r-4 border-blue-500">
+                <a href="desponabilite.html" class="flex items-center text-blue-600 dark:text-blue-400">
                     <i class="fas fa-users w-5 mr-3"></i>
                     <span>Disponibilités</span>
                 </a>
@@ -102,9 +113,9 @@
                     <option value="">Choisir le médecin</option>
                 </select>
 
-                <h3 class="text-lg font-semibold mb-2">Jours de disponibilité</h3>
-                <div id="joursCheckboxe" class="grid grid-cols-2 gap-2 mb-4">
-                    <label><input type="checkbox" value="Lundi" class="mr-2">Lundi</label>
+                <h3 class="text-lg font-semibold mb-2 dark:text-gray-400">Jours de disponibilité</h3>
+                <div id="joursCheckboxe" class="grid grid-cols-2 gap-2 mb-4 dark:text-gray-400">
+                    <label><input type="checkbox" value="Lundi" class="mr-2 dark:text-gray-400">Lundi</label>
                     <label><input type="checkbox" value="Mardi" class="mr-2">Mardi</label>
                     <label><input type="checkbox" value="Mercredi" class="mr-2">Mercredi</label>
                     <label><input type="checkbox" value="Jeudi" class="mr-2">Jeudi</label>
@@ -121,18 +132,30 @@
 </div>
 
 <script>
+
+    const DesBtn = document.getElementById("desconectBtn");
+        DesBtn.addEventListener('click', function desconectF(){
+            window.location.href = 'login.html'
+        })
+ 
+        if(sessionStorage.getItem("isLoggedIn")  !=="true"){
+            window.location.href = "login.html";
+        }
+
+
 const doctors = [
-    { id: 1, name: 'badr', specialite: 'heart', days: [] },
-    { id: 2, name: 'ali', specialite: 'dentiste', days: [] },
-    { id: 3, name: 'ahmed', specialite: 'children', days: [] },
-    { id: 4, name: 'muslim', specialite: 'legs', days: [] }
+    { id: 1, nom: 'badr', special: 'heart', days: [] },
+    { id: 2, nom: 'ali', special: 'dentiste', days: [] },
+    { id: 3, nom: 'ahmed', special: 'children', days: [] },
+    { id: 4, nom: 'muslim', special: 'legs', days: [] },
+    { id: 5, nom: 'karim', special: 'head', days: [] }
 ];
 
-if (!localStorage.getItem("doctors")) {
-    localStorage.setItem("doctors", JSON.stringify(doctors));
+if (!localStorage.getItem("doctors info")) {
+    localStorage.setItem("doctors info", JSON.stringify(doctors));
 }
 
-let Doctors = JSON.parse(localStorage.getItem("doctors"));
+let Doctors = JSON.parse(localStorage.getItem("doctors info"));
 const select = document.getElementById("selectDoc");
 const checkboxes = document.querySelectorAll('#joursCheckboxe input[type="checkbox"]');
 
@@ -140,7 +163,7 @@ const checkboxes = document.querySelectorAll('#joursCheckboxe input[type="checkb
 Doctors.forEach(doc => {
     const option = document.createElement("option");
     option.value = doc.id;
-    option.textContent = doc.name;
+    option.textContent = doc.nom;
     select.appendChild(option);
 });
 
@@ -168,7 +191,7 @@ document.getElementById("saveBtn").addEventListener("click", () => {
     const checkedDays = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
     selectDoc.days = checkedDays;
 
-    localStorage.setItem("doctors", JSON.stringify(Doctors));
+    localStorage.setItem("doctors info", JSON.stringify(Doctors));
     document.getElementById("message").textContent = "Disponibilités sauvegardées !";
 });
 </script>
