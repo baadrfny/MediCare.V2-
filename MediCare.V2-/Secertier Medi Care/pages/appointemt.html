@@ -7,37 +7,29 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script>
-
-    if (localStorage.getItem("theme") === "dark") {
+if (localStorage.getItem("theme") === "dark") {
     document.documentElement.classList.add("dark");
-  }
-
-    
-    tailwind.config = { darkMode: 'class' }
-
-    function toggleDarkMode() {
-  document.documentElement.classList.toggle("dark");
-
-  if (document.documentElement.classList.contains("dark")) {
-    localStorage.setItem("theme", "dark");
-  } else {
-    localStorage.setItem("theme", "light");
-  }
 }
-
-
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        sidebar.classList.toggle('-translate-x-full');
-        overlay.classList.toggle('hidden');
+tailwind.config = { darkMode: 'class' }
+function toggleDarkMode() {
+    document.documentElement.classList.toggle("dark");
+    if (document.documentElement.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+    } else {
+        localStorage.setItem("theme", "light");
     }
+}
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    sidebar.classList.toggle('-translate-x-full');
+    overlay.classList.toggle('hidden');
+}
 </script>
 </head>
 <body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
 
 <div class="flex h-screen overflow-hidden">
-
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden hidden" onclick="toggleSidebar()"></div>
 
     <!-- Sidebar -->
@@ -92,12 +84,8 @@
         </div>
     </div>
 
-    <!-- Overlay for mobile -->
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden hidden" onclick="toggleSidebar()"></div>
-
     <!-- Main content -->
-    <div class="flex-1 flex flex-col overflow-auto md:ml-20 ">
-        <!-- Mobile burger -->
+    <div class="flex-1 flex flex-col overflow-auto md:ml-20">
         <header class="md:hidden flex items-center justify-between bg-white dark:bg-gray-800 p-4 shadow-md sticky top-0 z-10">
             <h1 class="text-lg font-bold text-blue-600 dark:text-blue-400">Rendez-vous</h1>
             <button onclick="toggleSidebar()" class="text-gray-500 dark:text-gray-400">
@@ -108,7 +96,22 @@
         <main class="flex-1 p-4 md:p-6">
             <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Gestion des Rendez-vous</h1>
 
-            <!-- Responsive table container -->
+            <!-- Filters -->
+            <div class="flex gap-2 mb-4 flex-wrap">
+                <select id="filterDoctor" class="p-2 border rounded dark:bg-gray-700 dark:text-white">
+                    <option value="">Tous les médecins</option>
+                </select>
+                <input type="date" id="filterDate" class="p-2 border rounded dark:bg-gray-700 dark:text-white">
+                <select id="filterStatus" class="p-2 border rounded dark:bg-gray-700 dark:text-white">
+                    <option value="">Tous les statuts</option>
+                    <option value="En attente">En attente</option>
+                    <option value="Accepte">Accepte</option>
+                    <option value="Annule">Annule</option>
+                </select>
+                <button id="resetFilters" class="bg-blue-500 text-white px-3 py-1 rounded">Réinitialiser</button>
+            </div>
+
+            <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-md table-auto">
                     <thead class="bg-blue-500 text-white">
@@ -130,31 +133,40 @@
 </div>
 
 <script>
+let doctors = JSON.parse(localStorage.getItem('doctors info')) || [];
+let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
 
-    function toggleDarkMode() {
-  document.documentElement.classList.toggle('dark');
-
-  if (document.documentElement.classList.contains('dark')) {
-    localStorage.setItem("theme", "dark");
-  } else {
-    localStorage.setItem("theme", "light");
-  }
-}
-
-let doctors = JSON.parse(localStorage.getItem("doctors")) || [];
-let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+// Fill doctor filter
+const filterDoctor = document.getElementById('filterDoctor');
+doctors.forEach(doc => {
+    const opt = document.createElement('option');
+    opt.value = doc.id;
+    opt.textContent = doc.nom;
+    filterDoctor.appendChild(opt);
+});
 
 const tableBody = document.getElementById("appointmentsTable");
 
-function renderAppointments(){
+function renderAppointments() {
+    const doctorFilter = filterDoctor.value;
+    const dateFilter = document.getElementById('filterDate').value;
+    const statusFilter = document.getElementById('filterStatus').value;
+
     tableBody.innerHTML = "";
-    if(appointments.length === 0){
+    let filtered = appointments.filter(app => {
+        return (!doctorFilter || app.doctor == doctorFilter) &&
+               (!dateFilter || app.date == dateFilter) &&
+               (!statusFilter || app.status == statusFilter);
+    });
+
+    if (filtered.length === 0) {
         tableBody.innerHTML = `<tr><td colspan="7" class="text-center py-4">Aucun rendez-vous pour le moment</td></tr>`;
         return;
     }
-    appointments.forEach((app, index) => {
+
+    filtered.forEach((app, index) => {
         const doc = doctors.find(d => d.id == app.doctor);
-        const docName = doc ? doc.name : "Medecin";
+        const docName = doc ? doc.nom : "Médecin";
         const tr = document.createElement("tr");
         tr.classList.add("border-b");
         tr.innerHTML = `
@@ -166,14 +178,15 @@ function renderAppointments(){
             <td class="py-2 px-4 font-semibold ${
                 app.status === "Accepte" ? "text-green-600" :
                 app.status === "En attente" ? "text-yellow-600" :
-                "text-blue-600"
+                "text-red-600"
             }">${app.status}</td>
             <td class="py-2 px-4 space-x-2">
-                <button class="bg-green-500 text-white p-1 rounded acceptBtn m-2">Accepter</button>
+                <button class="bg-green-500 text-white p-1 rounded acceptBtn">Accepter</button>
                 <button class="bg-red-500 text-white px-2 py-1 rounded cancelBtn">Annuler</button>
             </td>
         `;
         tableBody.appendChild(tr);
+
         tr.querySelector(".acceptBtn").onclick = () => {
             appointments[index].status = "Accepte";
             localStorage.setItem("appointments", JSON.stringify(appointments));
@@ -186,6 +199,17 @@ function renderAppointments(){
         };
     });
 }
+
+filterDoctor.addEventListener('change', renderAppointments);
+document.getElementById('filterDate').addEventListener('change', renderAppointments);
+document.getElementById('filterStatus').addEventListener('change', renderAppointments);
+document.getElementById('resetFilters').addEventListener('click', () => {
+    filterDoctor.value = '';
+    document.getElementById('filterDate').value = '';
+    document.getElementById('filterStatus').value = '';
+    renderAppointments();
+});
+
 renderAppointments();
 </script>
 

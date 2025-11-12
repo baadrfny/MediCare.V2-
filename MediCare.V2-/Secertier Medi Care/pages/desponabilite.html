@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta nom="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestion des Disponibilités - Dashboard Secrétaire</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -106,7 +106,7 @@
             </div>
         </header>
 
-        <main class="flex overflow-y-auto p-4 md:p-8">
+        <main class="flex overflow-y-auto p-4 md:p-8 ">
             <div class="flex-1 overflow-y-auto p-4 md:p-8 bg-white dark:bg-gray-800 rounded-lg shadow border-2 border-blue-500">
                 <h3 class="text-xl font-bold text-gray-900 dark:text-gray-400 mb-4">Sélectionner un médecin</h3>
                 <select id="selectDoc" class="border-2 rounded p-2 mb-6 w-full">
@@ -143,13 +143,7 @@
         }
 
 
-const doctors = [
-    { id: 1, nom: 'badr', special: 'heart', days: [] },
-    { id: 2, nom: 'ali', special: 'dentiste', days: [] },
-    { id: 3, nom: 'ahmed', special: 'children', days: [] },
-    { id: 4, nom: 'muslim', special: 'legs', days: [] },
-    { id: 5, nom: 'karim', special: 'head', days: [] }
-];
+
 
 if (!localStorage.getItem("doctors info")) {
     localStorage.setItem("doctors info", JSON.stringify(doctors));
