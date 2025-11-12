@@ -35,29 +35,29 @@
     </script>
     <script>
         if (localStorage.getItem("theme") === "dark") {
-    document.documentElement.classList.add("dark");
-  }
+            document.documentElement.classList.add("dark");
+        }
 
-    
-    tailwind.config = { darkMode: 'class' }
 
-    function toggleDarkMode() {
-  document.documentElement.classList.toggle("dark");
+        tailwind.config = { darkMode: 'class' }
 
-  if (document.documentElement.classList.contains("dark")) {
-    localStorage.setItem("theme", "dark");
-  } else {
-    localStorage.setItem("theme", "light");
-  }
-}
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle("dark");
+
+            if (document.documentElement.classList.contains("dark")) {
+                localStorage.setItem("theme", "dark");
+            } else {
+                localStorage.setItem("theme", "light");
+            }
+        }
 
 
         function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    sidebar.classList.toggle('-translate-x-full');
-    overlay.classList.toggle('hidden');
-}
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
 
     </script>
 
@@ -68,9 +68,10 @@
     <div class="flex h-screen">
         <!-- Sidebar -->
 
-        <button onclick="toggleSidebar()" class="md:hidden text-gray-500 dark:text-gray-400 mr-4 ml-4 top-0 mt-2 right-0 fixed z-30">
-    <i class="fas fa-bars text-xl"></i>
-</button>
+        <button onclick="toggleSidebar()"
+            class="md:hidden text-gray-500 dark:text-gray-400 mr-4 ml-4 top-0 mt-2 right-0 fixed z-30">
+            <i class="fas fa-bars text-xl"></i>
+        </button>
 
 
         <div id="sidebar"
@@ -82,7 +83,8 @@
 
             <nav class="mt-6">
                 <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <a href="dashboard.html" class="flex items-center text-gray-700 dark:text-gray-300">
+                    <a href="/MediCare.V2-/MediCare.V2-/Secertier Medi Care/pages/dashboard.html"
+                        class="flex items-center text-gray-700 dark:text-gray-300">
                         <i class="fas fa-tachometer-alt w-5 mr-3"></i>
                         <span>Tableau de bord</span>
                     </a>
@@ -176,7 +178,8 @@
                 </div>
                 <div class="flex flex-col w-[90%] cursor-pointer relative">
                     <label class="text-text dark:text-white font-body pl-1">Spécialité *</label>
-                    <select id="user-choise" class="flex items-center justify-between w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-transparent dark:border-[#334155] placeholder:font-body h-8 pl-2 text-text dark:text-white text-md">
+                    <select id="user-choise"
+                        class="flex items-center justify-between w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-transparent dark:border-[#334155] placeholder:font-body h-8 pl-2 text-text dark:text-white text-md">
 
                     </select>
                 </div>
@@ -271,11 +274,11 @@
 
             let doctors = JSON.parse(localStorage.getItem('doctors info')) || [];
             let all_specialites = JSON.parse(localStorage.getItem('specialites')) || [];
-        
+
             let formStatus = false;
-            
+
             console.log(today)
-            
+
             switch (today) {
                 case 1:
                     today = 'Lundi'
@@ -298,15 +301,15 @@
                 case 0:
                     today = 'Dimanche'
                     break;
-                
-                
+
+
             }
 
             if (doctors) {
                 doctors.forEach(doctor => {
-                    createnewcard(doctor,today);
+                    createnewcard(doctor, today);
                 });
-                
+
             }
 
             if (all_specialites) {
@@ -314,14 +317,20 @@
             }
 
             console.log(today);
-            function specialitesAdd(){
-                all_specialites.forEach(one =>{
+            function specialitesAdd() {
+                const specialite_choix = document.createElement('option');
+                specialite_choix.classList = " w-full h-auto pl-2 dark:text-text bg-gray-100 dark:bg-[#334155]";
+                specialite_choix.textContent = "choisir un medicin";
+                specialiteInput.value = "";
+                specialiteInput.appendChild(specialite_choix);//////////////////////////
+                all_specialites.forEach(one => {
                     const specialite_choix = document.createElement('option');
                     specialite_choix.classList = " w-full h-auto pl-2 dark:text-text bg-gray-100 dark:bg-[#334155]";
-                    specialite_choix.textContent = one ;
+                    specialite_choix.textContent = one;
+                    specialite_choix.value = one;
                     specialiteInput.appendChild(specialite_choix);
-                    
-                    
+
+
                 })
             }
 
@@ -333,11 +342,11 @@
                 nomInput.value = "";
                 descriptionInput.value = "";
                 urlInput.value = "";
-                specialiteInput.value = "choisir la spécialitée";
+                specialiteInput.selectedIndex = 0;
                 formStatus = false;
             }
 
-            function createnewcard(doctor,today){
+            function createnewcard(doctor, today) {
                 // card div
                 const card = document.createElement('div');
                 card.className = "flex flex-col justify-start items-center gap-2 w-72 h-[232px] bg-white dark:bg-gray-800 shadow-lg px-6 py-5 rounded-xl";
@@ -363,8 +372,8 @@
                 doctorInfo.appendChild(name);
                 //spécialité
                 const doctorSpec = document.createElement('p');
-                doctorSpec.className = "dark:text-gray-400 text-text font-body";
-                doctorSpec.textContent = "cardiologie"
+                doctorSpec.className = "optn dark:text-gray-400 text-text font-body";
+                doctorSpec.textContent = doctor.specialite;
 
                 doctorInfo.appendChild(doctorSpec);
                 //disponabilité
@@ -375,7 +384,7 @@
                 const cercle_red_green = document.createElement('div');
                 if (doctor.days.includes(today)) {
                     cercle_red_green.className = "w-2 h-2 rounded-full bg-green-600";
-                }else {
+                } else {
                     cercle_red_green.className = "w-2 h-2 rounded-full bg-red-600";
                 }
                 doctordispo.appendChild(cercle_red_green);
@@ -386,8 +395,8 @@
                 console.log(today);
                 console.log(doctor.days.includes(today))
                 if (doctor.days.includes(today)) {
-                    disponible.textContent = "disponible" ;
-                }else {
+                    disponible.textContent = "disponible";
+                } else {
                     disponible.textContent = "indisponible";
                 }
                 doctordispo.appendChild(disponible);
@@ -409,12 +418,13 @@
                 modify.className = "flex justify-center bg-gray-400 hover:bg-gray-600 dark:bg-gray-700 hover:dark:bg-gray-600 rounded-lg w-full items-center gap-4"
                 buttonsCon.appendChild(modify);
 
-                
+
                 //modify function calling
                 modify.addEventListener('click', () => {
                     //afficher form avec les informations de medicins
                     nomInput.value = name.textContent;
                     descriptionInput.value = text.textContent;
+                    urlInput.value = doctorImg.src;
                     ajoutForm_text.textContent = "modifier";
                     form.classList.remove('hidden');
                     //quand cliquez sur modifier
@@ -462,12 +472,16 @@
                 doctorObj.nom = nomInput.value;
                 doctorObj.url = urlInput.value;
                 doctorObj.description = descriptionInput.value;
-                console.log(doctorObj);
+                doctorObj.specialite = specialiteInput.value;
+                console.log(specialiteInput.value);
+                // console.log(doctorObj);
                 currentCard.querySelector('h2').textContent = nomInput.value; // update name
                 currentCard.querySelector('p.text-sm').textContent = descriptionInput.value; // update description
                 currentCard.querySelector('img').src = urlInput.value; // update image
+                currentCard.querySelector('.optn').textContent = specialiteInput.value;
 
-                localStorage.setItem('doctors info',JSON.stringify(doctors));
+
+                localStorage.setItem('doctors info', JSON.stringify(doctors));
             }
 
 
@@ -488,7 +502,7 @@
 
             ajoutForm.addEventListener('click', () => {
                 console.log('entering cheking inputs');
-                
+
                 if (nomInput.value == "" || specialiteInput.value == "" || urlInput.value == "" || descriptionInput.value == "") {
                     alert('entrez tous les informations');
                     return;
@@ -508,48 +522,28 @@
                 const doctor = {
                     id: Date.now(),
                     nom: nomInput.value,
-                    special: specialiteInput.value,
+                    specialite: specialiteInput.value,
                     description: descriptionInput.value,
                     url: urlInput.value,
                     days: []
-                }
+                };
+
                 doctors.push(doctor);
                 localStorage.setItem('doctors info', JSON.stringify(doctors));
                 console.log('entering function')
-                createnewcard(doctor,today);
+                createnewcard(doctor, today);
             })
-            
+
             function removefromarray(card) {
                 const cardindex = doctors.findIndex(doc => doc.id === Number(card.dataset.id));
-
-                doctors.remove(cardindex);
+                if (cardindex === -1) return;          // nothing to remove
+                doctors.splice(cardindex, 1);           // remove the item
+                localStorage.setItem('doctors info', JSON.stringify(doctors));
             }
             console.log(doctors)
 
 
         </script>
-
-
-
-        <script>
-            const specialite = document.getElementById('spécialité');
-            const list = document.getElementById('liste');
-
-            specialite.addEventListener('click', () => {
-                list.classList.remove('hidden');
-            })
-
-        </script>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -560,13 +554,13 @@
         <script>
 
             document.getElementById("desconectBtn").addEventListener("click", () => {
-            window.location.href = "login.html";
-        });
+                window.location.href = "login.html";
+            });
 
-        // Vérif session
-        if (sessionStorage.getItem("isLoggedIn") !== "true") {
-            window.location.href = "login.html";
-        }
+            // Vérif session
+            if (sessionStorage.getItem("isLoggedIn") !== "true") {
+                window.location.href = "login.html";
+            }
 
             function toggleSidebar() {
                 const sidebar = document.getElementById('sidebar');
