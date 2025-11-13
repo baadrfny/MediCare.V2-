@@ -522,8 +522,11 @@
     // ========================================
     function rafraichirDonnees() {
       rendezvous = chargerRendezVous();
-      reinitialiserFiltres();
+      appliquerFiltres();
     }
+
+    setInterval(rafraichirDonnees, 2000);
+
 
     // ========================================
     // 🚀 INITIALISATION
@@ -532,7 +535,8 @@
     afficherRendezVous();
     
     // Rafraîchir les données toutes les 2 secondes pour voir les nouveaux RDV
-    setInterval(rafraichirDonnees, 2000);
+    // setInterval(rafraichirDonnees, 2000);
+
     function toggleSidebar() {
             const overlay = document.getElementById('overlay')
             const sidebar = document.getElementById('sidebar');
