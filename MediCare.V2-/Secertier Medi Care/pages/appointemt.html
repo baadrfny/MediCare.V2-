@@ -220,7 +220,7 @@
             document.getElementById('sidebar').classList.toggle('-translate-x-full');
         }
     // ========================================
-    // 📊 CHARGER LES RENDEZ-VOUS DU LOCALSTORAGE
+    //  CHARGER LES RENDEZ-VOUS DU LOCALSTORAGE
     // ========================================
     function chargerRendezVous() {
       let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
@@ -249,7 +249,7 @@
     let rdvEnCoursReprogrammation = null;
 
     // ========================================
-    // 🎯 FONCTION : AFFICHER LES RENDEZ-VOUS
+    //  FONCTION : AFFICHER LES RENDEZ-VOUS
     // ========================================
     function afficherRendezVous(liste = rendezvous) {
       let zone = document.getElementById('listeRendezVous');
@@ -372,7 +372,7 @@
     }
 
     // ========================================
-    // 📊 FONCTION : METTRE À JOUR LES STATS
+    //  FONCTION : METTRE À JOUR LES STATS
     // ========================================
     function mettreAJourStatistiques(liste) {
       document.getElementById('stat-total').textContent = liste.length;
@@ -382,7 +382,7 @@
     }
 
     // ========================================
-    // 🔄 FONCTION : CHANGER LE STATUS
+    //  FONCTION : CHANGER LE STATUS
     // ========================================
     function changerStatus(id, nouveauStatus) {
       let rdv = rendezvous.find(r => r.id === id);
@@ -402,7 +402,7 @@
     }
 
     // ========================================
-    // 🔍 FONCTION : APPLIQUER LES FILTRES
+    //  FONCTION : APPLIQUER LES FILTRES
     // ========================================
     function appliquerFiltres() {
       let filtrePatient = document.getElementById('filtrePatient').value.toLowerCase();
@@ -423,7 +423,7 @@
     }
 
     // ========================================
-    // 🔄 FONCTION : RÉINITIALISER LES FILTRES
+    //  FONCTION : RÉINITIALISER LES FILTRES
     // ========================================
     function reinitialiserFiltres() {
       document.getElementById('filtrePatient').value = '';
@@ -434,7 +434,7 @@
     }
 
     // ========================================
-    // 📅 FONCTION : OUVRIR MODAL REPROGRAMMER
+    //  FONCTION : OUVRIR MODAL REPROGRAMMER
     // ========================================
     function ouvrirModalReprogrammer(id) {
       rdvEnCoursReprogrammation = id;
@@ -446,7 +446,7 @@
     }
 
     // ========================================
-    // ✅ FONCTION : CONFIRMER REPROGRAMMATION
+    //  FONCTION : CONFIRMER REPROGRAMMATION
     // ========================================
     function confirmerReprogrammation() {
       let nouvelleDate = document.getElementById('nouvelleDate').value;
@@ -479,7 +479,7 @@
     }
 
     // ========================================
-    // ❌ FONCTION : FERMER MODAL
+    //  FONCTION : FERMER MODAL
     // ========================================
     function fermerModal() {
       document.getElementById('modalReprogrammer').classList.add('hidden');
@@ -487,7 +487,7 @@
     }
 
     // ========================================
-    // 📅 FONCTION : FORMATER LA DATE
+    //  FONCTION : FORMATER LA DATE
     // ========================================
     function formatDate(dateStr) {
       let date = new Date(dateStr);
@@ -511,14 +511,14 @@
     }
 
     // ========================================
-    // 🌙 FONCTION : MODE SOMBRE
+    //  FONCTION : MODE SOMBRE
     // ========================================
     function toggleDarkMode() {
       document.documentElement.classList.toggle('dark');
     }
 
     // ========================================
-    // 🔄 FONCTION : RAFRAÎCHIR LES DONNÉES
+    // FONCTION : RAFRAÎCHIR LES DONNÉES
     // ========================================
     function rafraichirDonnees() {
       rendezvous = chargerRendezVous();
