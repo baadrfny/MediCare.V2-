@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: '#2563eb',
+          secondary: '#10b981',
+          accent: '#009688',
+          background: '#FFFFFF',
+          text: '#333333',
+          alert: '#E53935',
+        },
+        fontFamily: {
+          heading: ['Montserrat', 'sans-serif'],
+          body: ['"Source Sans 3"', 'sans-serif'],
+          sans: ['Inter', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+
+    <title>MediCare +</title>
+</head>
+<body>
+<header class="flex justify-center items-center bg-gray-200 bg-opacity-75 backdrop-blur-md h-20 sticky top-0"><div class="flex items-center justify-center gap-36 ">
+        <img src="ressources/medicare-logo.png" alt="website logo" class="w-32 lg:w-36">
+        <nav class="flex bg-slate-200 px-5 py-2 rounded-3xl  bg-gray-50 items-center gap-8 font-heading text-base font-medium text-text hidden lg:flex">
+            <a href=""><div class="bg-primary px-4 py-1 rounded-2xl text-white" >Accueil</div></a>
+            <a href="medicins.html"><div>Médecins</div></a>
+            <a href="rendez-vous.html"><div>Rendez-vous</div></a>
+        </nav>
+        <div class="hidden lg:flex">
+            <p class="font-heading font-semibold text-text pr-1">light</p>
+            <div class="flex items-center bg-primary w-12 rounded-xl px-1 ">
+                <div class="bg-white w-4 h-4 rounded-full "></div>
+            </div>
+            <p class="font-heading font-semibold text-text pl-1">dark</p>
+        </div>
+        <div class="flex justify-center items-center gap-6 lg:hidden ">
+            <!---light dark mode-->
+            <div class="flex justify-center items-center w-12 h-12 hover:bg-blue-800 rounded-xl hidden lg:hidden">
+                <img class="w-5 invert brightness-0" src="ressources/brightness.png" alt="">
+            </div>
+            <div class="flex justify-center items-center w-12 h-12 hover:bg-blue-100 rounded-xl  lg:hidden">
+                <img class="w-5 " src="ressources/night-mode.png" alt="">
+            </div>
+            <!---menuburger-->
+            <div id="menubutton" class="w-8 cursor-pointer lg:hidden">
+                <img class="w-5" src="ressources/menu.png" alt="">
+            </div>
+        
+        </div>
+
+        <button ><a href="Secertier Medi Care/pages/login.html">Admin</a></button>
+    </div></header>
+
+
+
+    
+    <section class="flex flex-col items-center gap-6 bg-blue-50">
+        
+
+        <h1 class=" pt-14 tex/*-----------menuburger------------------*/
+
+const menuButton = document.getElementById('menubutton');
+const menulist = document.getElementById('menu');
+
+menuButton.addEventListener('click',()=>{
+    menulist.classList.toggle('hidden');
+});
+t-3xl font-heading font-semibold text-text w-[70vw] text-center">Prenez soin de votre santé, simplement et en ligne.</h1>
+        <p class="w-[45vw] text-center text-text font-medium font-body">Votre santé est notre priorité. Prenez rendez-vous avec nos médecins experts et suivez votre santé en toute simplicité.</p>
+        <!--searchbar-->
+        <div class="flex items-center w-[70vw] h-8 bg-slate-200 rounded-2xl font-body text-slate-600 px-3">
+            <img class="w-4 mr-2" src="ressources/icons8-search-288(4).png" alt="search icon">
+            <input
+                id="search"
+                type="text"
+                placeholder="Rechercher un médecin..."
+                class="bg-transparent outline-none w-full placeholder-slate-400"
+            >
+        </div>
+        <!---recherchce and nos medcins buttons-->
+        <div class="flex justify-center items-center gap-8">
+            <button id="recherche" class=" bg-primary w-[120px] rounded-2xl h-8 text-white font-heading font-semibold">Rechercher</button></a>
+            <a href="medicins.html"><button class="flex justify-center items-center border-2 border-secondary gap-2 w-40 rounded-2xl h-8 text-secondary font-heading font-semibold"><img src="ressources/icons8-persons-96(1).png" alt="" class="w-5 " >Nos médecin</button></a>
+        </div>
+        
+        
+        <div class="flex gap-3">
+            <div class="flex flex-col gap-2 justify-center items-center w-60 h-40 rounded-lg shadow-lg hover:shadow-blue-300 bg-white border-1 ">
+                <div class="flex w-12 h-12 rounded-full bg-blue-500/25 justify-center items-center ">
+                <img class="w-6 pt-1" src="ressources/blocks/heart.png" alt="">
+                </div>
+                <h2 class="font-heading text-primary">10,000+</h2>
+                <p class="font-body text-text">Patients Satisfaits</p>
+            </div>
+
+            <div class="flex flex-col gap-2 justify-center items-center w-60 h-40 rounded-lg shadow-lg hover:shadow-grreen-300 bg-white hover:shadow-green-300 border-1 ">
+                <div class="flex w-12 h-12 rounded-full bg-green-500/25 justify-center items-center ">
+                <img class="w-8" src="ressources/icons8-persons-96(1).png" alt="">
+                </div>
+                <h2 class="font-heading text-secondary">50+</h2>
+                <p class="font-body text-text">Médecins Experts</p>
+            </div>
+
+            <div class="flex flex-col gap-2 justify-center items-center w-60 h-40 rounded-lg shadow-lg bg-white hover:shadow-blue-300 border-1 ">
+                <div class="flex w-12 h-12 rounded-full bg-blue-500/25 justify-center items-center ">
+                <img class="w-6 " src="ressources/blocks/date.png" alt="">
+                </div>
+                <h2 class="font-heading text-primary">500+</h2>
+                <p class="font-body text-text">Rendez-vous/Mois</p>
+            </div>
+
+            <div class="flex flex-col gap-2 justify-center items-center w-60 h-40 rounded-lg shadow-lg hover:shadow-green-300 bg-white border-1 ">
+                <div class="flex w-12 h-12 rounded-full bg-green-500/25 justify-center items-center ">
+                <img class="w-8" src="ressources/blocks/award-ribbon(1).png" alt="">
+                </div>
+                <h2 class="font-heading text-secondary">15+</h2>
+                <p class="font-body text-text">Années d'Expérience</p>
+            </div>
+        </div>
+
+        <div class="flex justify-between items-center px-3 bg-gradient-to-r from-primary  via-cyan-600 to-green-500 w-[70vw] h-32 rounded-xl">
+            <img id="left1" class="w-5 h-9 cursor-pointer " src="ressources/fleft.png" alt="a gouche">
+            <div class="flex items-center gap-4 flex-1 pl-4">
+            <div class="flex w-20 h-20 rounded-full bg-blue-400/75 justify-center items-center shadow-lg">
+            <img id="image" class="w-14" src="ressources/carousel/brain.png" alt="">
+            </div>
+            <div>
+                <h2 id="title" class="text-2xl font-heading text-white font-semibold">Gestion du Stress</h2>
+                <p id="paragraph" class="text-base text-white font-body">Pratiquez la méditation ou le yoga pour réduire le stress et améliorer votre bien-être.</p>
+            </div>
+            </div>
+            <img id="right1" class="w-5 h-9 cursor-pointer" src="ressources/fright.png" alt="a droite">
+        </div>
+    </section>
+
+    <section class="flex flex-col justify-center items-center gap-6">
+        <h1 class="pt-14 text-3xl font-heading font-semibold text-text text-center">Nos services médicaux</h1>
+        <p class="text-text font-body text-center w-[80vw]">Nous proposons une gamme complète de services médicaux dispensés par des spécialistes expérimentés.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="flex flex-col justify-between items-start w-[60vw] md:w-[30vw] h-60 p-4 md:p-4 lg:p-6 rounded-lg border-gray-300 border-2 bg-white hover:shadow-lg">
+                <div class="flex w-16 h-16 rounded-xl bg-blue-500/25 justify-center items-center">
+                    <!-- Icône Heart pour Cardiology -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l8 8Z"/></svg>
+                </div>
+                <h1 class="font-heading text-lg">Cardiology</h1>
+                <p class="font-body text-text text-base">Comprehensive heart care with advanced diagnostic and treatment options for all cardiac conditions.</p>
+            </div>
+
+            <div class="flex flex-col justify-between items-start w-[60vw] md:w-[30vw] h-60 p-4 md:p-4 lg:p-6 rounded-lg border-gray-300 border-2 bg-white hover:shadow-lg">
+                <div class="flex w-16 h-16 rounded-xl bg-blue-500/25 justify-center items-center">
+                    <!-- Icône Brain pour Neurology -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg>
+                </div>
+                <h1 class="font-heading text-lg">Neurology</h1>
+                <p class="font-body text-text text-base">Expert care for neurological disorders using state-of-the-art technology and treatments.</p>
+            </div>
+
+            <div class="flex flex-col justify-between items-start w-[60vw] md:w-[30vw] h-60 p-4 md:p-4 lg:p-6 rounded-lg border-gray-300 border-2 bg-white hover:shadow-lg">
+                <div class="flex w-16 h-16 rounded-xl bg-blue-500/25 justify-center items-center">
+                    <!-- Icône Stethoscope pour General Medicine -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>
+                </div>
+                <h1 class="font-heading text-lg">General Medicine</h1>
+                <p class="font-body text-text text-base">Primary care services for routine checkups, preventive care, and treatment of common illnesses.</p>
+            </div>
+
+            <div class="flex flex-col justify-between items-start w-[60vw] md:w-[30vw] h-60 p-4 md:p-4 lg:p-6 rounded-lg border-gray-300 border-2 bg-white hover:shadow-lg">
+                <div class="flex w-16 h-16 rounded-xl bg-blue-500/25 justify-center items-center">
+                    <!-- Icône Activity pour Orthopedics -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>
+                </div>
+                <h1 class="font-heading text-lg">Orthopedics</h1>
+                <p class="font-body text-text text-base">Specialized treatment for bone, joint, and muscle conditions with surgical and non-surgical options.</p>
+            </div>
+
+            <div class="flex flex-col justify-between items-start w-[60vw] md:w-[30vw] h-60 p-4 md:p-4 lg:p-6 rounded-lg border-gray-300 border-2 bg-white hover:shadow-lg">
+                <div class="flex w-16 h-16 rounded-xl bg-blue-500/25 justify-center items-center">
+                    <!-- Icône Baby pour Pediatrics -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg>
+                </div>
+                <h1 class="font-heading text-lg">Pediatrics</h1>
+                <p class="font-body text-text text-base">Dedicated care for infants, children, and adolescents with child-friendly facilities.</p>
+            </div>
+
+            <div class="flex flex-col justify-between items-start w-[60vw] md:w-[30vw] h-60 p-4 md:p-4 lg:p-6 rounded-lg border-gray-300 border-2 bg-white hover:shadow-lg">
+                <div class="flex w-16 h-16 rounded-xl bg-blue-500/25 justify-center items-center">
+                    <!-- Icône Eye pour Ophthalmology -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <h1 class="font-heading text-lg">Ophthalmology</h1>
+                <p class="font-body text-text text-base">Complete eye care services including vision tests, treatments, and surgical procedures.</p>
+            </div>
+
+        </div>
+    </section>
+    
+    <footer class="flex justify-center mt-8 mb-3 mx-4">
+    <div class="flex flex-col  items-center w-[100vw] bg-cyan-200 h-auto py-8 rounded-2xl gap-4">
+        <div class="md:flex md:justify-center md:items-center gap-[25vw]  ">
+        <div class="flex flex-col items-center">
+        <img class="w-44" src="ressources/medicare-logo.png" alt="logo">
+        <p class="w-[60vw] text-text font-body text-center md:w-[30vw]  lg:w-auto">Une plateforme de consultations et de suivi médical en ligne.</p>
+        </div>
+        <!-- Social Media Icons -->
+        <div class="flex justify-center gap-4 mt-2">
+            <!-- Facebook -->
+            <a href="#" class="w-10 h-10 rounded-full bg-white hover:bg-cyan-500 flex items-center justify-center transition-all group" aria-label="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-600 group-hover:text-white">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                </svg>
+            </a>
+            
+            <!-- Twitter -->
+            <a href="#" class="w-10 h-10 rounded-full bg-white hover:bg-cyan-500 flex items-center justify-center transition-all group" aria-label="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-600 group-hover:text-white">
+                    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                </svg>
+            </a>
+            
+            <!-- Instagram -->
+            <a href="#" class="w-10 h-10 rounded-full bg-white hover:bg-cyan-500 flex items-center justify-center transition-all group" aria-label="Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-600 group-hover:text-white">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                </svg>
+            </a>
+            
+            <!-- LinkedIn -->
+            <a href="#" class="w-10 h-10 rounded-full bg-white hover:bg-cyan-500 flex items-center justify-center transition-all group" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-600 group-hover:text-white">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                    <rect width="4" height="12" x="2" y="9"/>
+                    <circle cx="4" cy="4" r="2"/>
+                </svg>
+            </a>
+        </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="w-[80vw] h-[2px] bg-gray-400 rounded-2xl mt-2"></div>
+        
+        <!-- Copyright -->
+        <p class="text-text font-body text-sm text-center text-gray-600 mt-2">
+            © 2025 Medicare. Tous droits réservés.
+        </p>
+    </div>
+</footer>
+
+    <script src="JS/index.js"></script>
+</body>
+</html>
