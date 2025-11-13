@@ -208,7 +208,7 @@
           <button class="p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition" onclick="openModal(true, this)">
             <i class="fa-solid fa-pen text-gray-600"></i>
           </button>
-          <button class="p-2 bg-red-100 rounded-lg hover:bg-red-200 transition" onclick="this.closest('.specialite-card').remove(); saveSpecialites();">
+          <button class="p-2 bg-red-100 rounded-lg hover:bg-red-200 transition" onclick="deleteSpecialite(this)">
             <i class="fa-solid fa-trash text-red-600"></i>
           </button>
         </div>`;
@@ -231,6 +231,29 @@
     });
 
     loadSpecialites();
+
+    function deleteSpecialite(button) {
+      const card = button.closest('.specialite-card');
+      const nom = card.querySelector('span').textContent;
+      alert('Vous allez supprimer ' + nom);
+      const nomClean = nom.trim().toLowerCase();
+      const medecins = JSON.parse(localStorage.getItem('medecinsSpecialites')) || [];
+      const docsInfo = JSON.parse(localStorage.getItem('doctors info')) || [];
+      docsInfo.forEach((doc) => {
+        if (doc && doc.specialite) {
+          medecins.push(doc.specialite);
+        } else if (doc && doc.special) {
+          medecins.push(doc.special);
+        }
+      });
+      const bloque = medecins.some(spec => (spec || '').trim().toLowerCase() === nomClean);
+      if (bloque) {
+        alert('Un medecin utilise encore cette specialite');
+        return;
+      }
+      card.remove();
+      saveSpecialites();
+    }
 
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 

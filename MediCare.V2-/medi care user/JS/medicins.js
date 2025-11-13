@@ -70,5 +70,18 @@ if (storedValue) {
 }
 window.addEventListener('load', external);
   
+function saveDoctorSpecialites() {
+  const specs = [];
+  cards.forEach(card => {
+    const badge = card.querySelector('.text-primary');
+    if (badge) {
+      specs.push(badge.textContent.trim());
+    }
+  });
+  localStorage.setItem('medecinsSpecialites', JSON.stringify(specs));
+}
+
+saveDoctorSpecialites();
+  
   
   
