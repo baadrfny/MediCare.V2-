@@ -83,7 +83,7 @@
 
             <nav class="mt-6">
                 <div class="px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <a href="index.html"
+                    <a href="/MediCare.V2-/MediCare.V2-/Secertier Medi Care/pages/dashboard.html"
                         class="flex items-center text-gray-700 dark:text-gray-300">
                         <i class="fas fa-tachometer-alt w-5 mr-3"></i>
                         <span>Tableau de bord</span>
@@ -156,12 +156,7 @@
                         <p class="font-body bg-blue-600 text-white px-2 py-1 rounded-lg">+ ajouter un medcin</p>
                     </button>
                 </div>
-                <!-- <div id="search"
-                    class="flex justify-center items-center w-[70vw] md:w-[500px] h-8 bg-slate-200 dark:bg-gray-700 rounded-lg font-body text-slate-600 px-3 ">
-                    <i class="fa-solid fa-magnifying-glass fa-sm  pr-3" style="color: #9d9d9d;"></i>
-                    <input id="search" type="text" placeholder="Rechercher un médecin..."
-                        class="bg-transparent outline-none w-full placeholder-slate-400">
-                </div> -->
+                
             </div>
 
             <!---Form ajoute-->
@@ -213,35 +208,7 @@
 
             <!-----Doctors cards----->
             <div id="doctors-cards-container" class="flex justify-center flex-wrap gap-8">
-                <!-- <div class="flex flex-col justify-center items-center gap-2 w-72 bg-white dark:bg-gray-800 shadow-lg px-6 py-5 rounded-xl  ">
-                    <div class="grid grid-cols-[auto_auto] gap-10">
-
-                        <img src="/hospital-healthcare-workers-covid-19-treatment-concept-young-doctor-scrubs-making-daily-errands-clinic-listening-patient-symptoms-look-camera-professional-physician-curing-diseases(1).jpg"
-                            class="w-16 h-16 rounded-full border-gray-500" alt="">
-
-                        <div class="grid grid-rows-[auto_auto_auto]">
-                            <h2 class="dark:text-white text-black font-semibold font-heading">Name doctor</h2>
-                            <p class="dark:text-gray-400 text-text font-body ">spécialité</p>
-                            <div class="flex gap-2 items-center ">
-                                <div class="w-2 h-2 rounded-full bg-red-600"></div>
-                                <p class="dark:text-gray-400 text-text font-body">disponabilité</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center w-full h-[72px] break-words dark:text-gray-400 text-text">
-                        <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet consectetur elit, Dolorem in eaque.
-                        </p>
-                    </div>
-                    <div class="flex gap-4 w-[85%]">
-                        <button
-                            class="flex justify-center bg-gray-700 hover:dark:bg-gray-600 rounded-lg w-full items-center gap-4"><i
-                                class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
-                            <p class="text-white">Modify</p>
-                        </button>
-                        <button class="bg-red-600 px-2 py-1 rounded-lg"><i class="fa-solid fa-trash"
-                                style="color: #ffffff;"></i></button>
-                    </div>
-                </div> -->
+                
             </div>
             <div id="succes-mes"
                 class="max-w-xs sm:max-w-sm mx-auto mt-5 p-4 rounded-lg shadow-lg bg-green-100 dark:bg-green-900 
@@ -263,6 +230,8 @@
             const alldoctors = document.getElementById('doctors-cards-container');
             const specialite_list = document.getElementById('choises');
 
+            
+
             const nomInput = document.getElementById('Nom');
             const specialiteInput = document.getElementById('user-choise');
             const urlInput = document.getElementById('url');
@@ -271,6 +240,7 @@
             const general_date = new Date();
             let today = general_date.getDay();
             let currentCard = null;
+            
 
             let doctors = JSON.parse(localStorage.getItem('doctors info')) || [];
             let all_specialites = JSON.parse(localStorage.getItem('specialites')) || [];
@@ -301,8 +271,6 @@
                 case 0:
                     today = 'Dimanche'
                     break;
-
-
             }
 
             if (doctors) {
@@ -319,13 +287,13 @@
             console.log(today);
             function specialitesAdd() {
                 const specialite_choix = document.createElement('option');
-                specialite_choix.classList = " w-full h-auto pl-2 dark:text-text bg-gray-100 dark:bg-[#334155]";
+                specialite_choix.className = " w-full h-auto pl-2 dark:text-text bg-gray-100 dark:bg-[#334155]";
                 specialite_choix.textContent = "choisir un medicin";
-                specialiteInput.value = "";
+                specialite_choix.value = "" ;
                 specialiteInput.appendChild(specialite_choix);//////////////////////////
                 all_specialites.forEach(one => {
                     const specialite_choix = document.createElement('option');
-                    specialite_choix.classList = " w-full h-auto pl-2 dark:text-text bg-gray-100 dark:bg-[#334155]";
+                    specialite_choix.className = " w-full h-auto pl-2 dark:text-text bg-gray-100 dark:bg-[#334155]";
                     specialite_choix.textContent = one;
                     specialite_choix.value = one;
                     specialiteInput.appendChild(specialite_choix);
@@ -334,7 +302,40 @@
                 })
             }
 
+            function validation_form() {
+                let validation = true ;
+                const url_regex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9._-]+\.[a-zA-Z]{2,}(\/[a-zA-Z0-9._~:/?#[\]@!$&'()*+,;=%-]*)?$/;
 
+                if (nomInput.value.length < 3) {
+                    nomInput.className = "w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-red-600 dark:border-red-600 placeholder:font-body h-8 pl-2 text-text dark:text-white text-sm";
+                    validation = false ;
+                    
+                }else{
+                    nomInput.className = "w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-transparent dark:border-[#334155] placeholder:font-body h-8 pl-2 text-text dark:text-white text-sm";
+                    
+                }
+                if(specialiteInput.value == "" ) {
+                    specialiteInput.className = "flex items-center justify-between w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-red-600 dark:border-red-600 placeholder:font-body h-8 pl-2 text-text dark:text-white text-md";
+                    validation = false ;
+                }else{
+                    specialiteInput.className="flex items-center justify-between w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-transparent dark:border-[#334155] placeholder:font-body h-8 pl-2 text-text dark:text-white text-md";
+                }
+
+                if(!url_regex.test(urlInput.value)) {
+                    urlInput.className = "w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-red-600 dark:border-red-600 placeholder:font-body h-8 pl-2 text-text dark:text-white text-sm";
+                    validation = false ;
+                }else{
+                    urlInput.className = "w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-transparent dark:border-[#334155] placeholder:font-body h-8 pl-2 text-text dark:text-white text-sm";
+                }
+
+                if(descriptionInput.value.length < 4) {
+                    descriptionInput.className="w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-red-600 dark:border-red-600 placeholder:font-body h-16 pl-2 text-text dark:text-white text-sm";
+                    validation = false ;
+                }else{
+                    descriptionInput.className="w-full rounded-md bg-gray-100 dark:bg-[#334155]/30 border border-transparent dark:border-[#334155] placeholder:font-body h-16 pl-2 text-text dark:text-white text-sm";
+                }
+                return validation;
+            }
 
             function resetForm() {
                 //vider le form 
@@ -503,9 +504,9 @@
             ajoutForm.addEventListener('click', () => {
                 console.log('entering cheking inputs');
 
-                if (nomInput.value == "" || specialiteInput.value == "" || urlInput.value == "" || descriptionInput.value == "") {
-                    alert('entrez tous les informations');
-                    return;
+                validation_form();
+                if (!validation_form()) {
+                    return ;
                 }
                 console.log('checking modification mod');
                 if (formStatus) {
