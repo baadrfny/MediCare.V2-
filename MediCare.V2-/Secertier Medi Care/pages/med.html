@@ -156,12 +156,7 @@
                         <p class="font-body bg-blue-600 text-white px-2 py-1 rounded-lg">+ ajouter un medcin</p>
                     </button>
                 </div>
-                <!-- <div id="search"
-                    class="flex justify-center items-center w-[70vw] md:w-[500px] h-8 bg-slate-200 dark:bg-gray-700 rounded-lg font-body text-slate-600 px-3 ">
-                    <i class="fa-solid fa-magnifying-glass fa-sm  pr-3" style="color: #9d9d9d;"></i>
-                    <input id="search" type="text" placeholder="Rechercher un médecin..."
-                        class="bg-transparent outline-none w-full placeholder-slate-400">
-                </div> -->
+                
             </div>
 
             <!---Form ajoute-->
@@ -213,35 +208,7 @@
 
             <!-----Doctors cards----->
             <div id="doctors-cards-container" class="flex justify-center flex-wrap gap-8">
-                <!-- <div class="flex flex-col justify-center items-center gap-2 w-72 bg-white dark:bg-gray-800 shadow-lg px-6 py-5 rounded-xl  ">
-                    <div class="grid grid-cols-[auto_auto] gap-10">
-
-                        <img src="/hospital-healthcare-workers-covid-19-treatment-concept-young-doctor-scrubs-making-daily-errands-clinic-listening-patient-symptoms-look-camera-professional-physician-curing-diseases(1).jpg"
-                            class="w-16 h-16 rounded-full border-gray-500" alt="">
-
-                        <div class="grid grid-rows-[auto_auto_auto]">
-                            <h2 class="dark:text-white text-black font-semibold font-heading">Name doctor</h2>
-                            <p class="dark:text-gray-400 text-text font-body ">spécialité</p>
-                            <div class="flex gap-2 items-center ">
-                                <div class="w-2 h-2 rounded-full bg-red-600"></div>
-                                <p class="dark:text-gray-400 text-text font-body">disponabilité</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center w-full h-[72px] break-words dark:text-gray-400 text-text">
-                        <p class="text-sm line-clamp-3">Lorem ipsum dolor sit amet consectetur elit, Dolorem in eaque.
-                        </p>
-                    </div>
-                    <div class="flex gap-4 w-[85%]">
-                        <button
-                            class="flex justify-center bg-gray-700 hover:dark:bg-gray-600 rounded-lg w-full items-center gap-4"><i
-                                class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
-                            <p class="text-white">Modify</p>
-                        </button>
-                        <button class="bg-red-600 px-2 py-1 rounded-lg"><i class="fa-solid fa-trash"
-                                style="color: #ffffff;"></i></button>
-                    </div>
-                </div> -->
+                
             </div>
             <div id="succes-mes"
                 class="max-w-xs sm:max-w-sm mx-auto mt-5 p-4 rounded-lg shadow-lg bg-green-100 dark:bg-green-900 
@@ -537,11 +504,6 @@
             ajoutForm.addEventListener('click', () => {
                 console.log('entering cheking inputs');
 
-                // if (nomInput.value == "" || specialiteInput.value == "" || urlInput.value == "" || descriptionInput.value == "") {
-                //     alert('entrez tous les informations');
-                //     return;
-                // }
-                
                 validation_form();
                 if (!validation_form()) {
                     return ;
